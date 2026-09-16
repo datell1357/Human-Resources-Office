@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "기본 창에 필요한 Tauri 핵심 권한",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

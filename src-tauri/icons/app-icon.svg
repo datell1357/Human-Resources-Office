@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="Human Resources Office">
+  <rect width="1024" height="1024" rx="220" fill="#152437"/>
+  <rect x="232" y="302" width="560" height="422" rx="72" fill="#ffffff"/>
+  <path d="M398 302v-54c0-42 34-76 76-76h76c42 0 76 34 76 76v54h-64v-44c0-14-11-25-25-25h-50c-14 0-25 11-25 25v44h-64Z" fill="#ffffff"/>
+  <path d="M232 420h560v90c0 39-31 70-70 70H302c-39 0-70-31-70-70v-90Z" fill="#138a69"/>
+  <rect x="472" y="524" width="80" height="112" rx="24" fill="#152437"/>
+  <circle cx="512" cy="558" r="14" fill="#ffffff"/>
+</svg>
