@@ -1,0 +1,9 @@
+# 형식: active | reference_url | username | password | note
+# active는 true/false, yes/no, 1/0을 사용할 수 있습니다.
+# 이 파일은 예시입니다. 실제 값은 Git에서 제외된 accounts.txt에 입력하세요.
+true | https://example.com | user01 | change-me | 정상 계정
+true | https://shop.example.com | user02 | change-me | 쇼핑몰 계정
+true | invalid-url | user03 | change-me | URL 오류 예시
+false | https://test.local | user04 | change-me | 수동 제외
+true | http://example.org | user05 | change-me | HTTP 예시
+true | https://service.test.local | user06 | change-me | 내부 테스트
