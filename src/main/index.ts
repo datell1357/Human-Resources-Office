@@ -1,5 +1,18 @@
-import { app, BrowserWindow } from 'electron'
-import { join } from 'node:path'
+import { app, BrowserWindow, ipcMain } from 'electron'
+import { dirname, join, resolve } from 'node:path'
+import { existsSync } from 'node:fs'
+import { loadAccountFile } from './account-file'
+
+const resolveAccountsPath = (): string => {
+  const override = process.env.ACCOUNTS_FILE?.trim()
+  if (override) return resolve(override)
+
+  if (!app.isPackaged) return resolve(process.cwd(), 'accounts.txt')
+
+  const portablePath = join(dirname(process.execPath), 'accounts.txt')
+  if (existsSync(portablePath)) return portablePath
+  return join(app.getPath('userData'), 'accounts.txt')
+}
 
 const createWindow = (): void => {
   const window = new BrowserWindow({
@@ -23,6 +36,11 @@ const createWindow = (): void => {
 }
 
 app.whenReady().then(() => {
+  ipcMain.handle('accounts:load', async () => {
+    const { result } = await loadAccountFile(resolveAccountsPath())
+    return result
+  })
+
   createWindow()
 
   app.on('activate', () => {

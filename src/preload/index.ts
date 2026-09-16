@@ -1,5 +1,6 @@
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
+import type { AccountLoadResult } from '../shared/accounts'
 
 contextBridge.exposeInMainWorld('accounts', {
-  load: async () => ({ status: 'scaffold' })
+  load: (): Promise<AccountLoadResult> => ipcRenderer.invoke('accounts:load')
 })
