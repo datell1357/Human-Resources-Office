@@ -156,7 +156,7 @@ pub fn import_accounts(
 mod tests {
     use super::*;
     use crate::accounts_file::parse_accounts;
-    use crate::secret::MemoryStore;
+    use crate::secret::MemorySecretStore;
     use rusqlite::Connection;
 
     fn dump_every_stored_value(connection: &Connection) -> String {
@@ -180,7 +180,7 @@ mod tests {
     #[test]
     fn creates_one_site_per_address_and_keeps_every_account() {
         let database = Database::open_in_memory().unwrap();
-        let secrets = MemoryStore::default();
+        let secrets = MemorySecretStore::default();
         let accounts = parse_accounts(
             "true | https://example.com | worker01 | secret-one | 첫 계정\ntrue | https://example.com | worker02 | secret-two | 같은 사이트\nfalse | https://other.example | worker03 | secret-three | 제외됨",
         );
@@ -205,7 +205,7 @@ mod tests {
     #[test]
     fn never_writes_a_password_into_the_database() {
         let database = Database::open_in_memory().unwrap();
-        let secrets = MemoryStore::default();
+        let secrets = MemorySecretStore::default();
         let accounts =
             parse_accounts("true | https://example.com | private-user | never-store-this | 메모");
 
@@ -223,7 +223,7 @@ mod tests {
     #[test]
     fn importing_twice_updates_instead_of_duplicating() {
         let database = Database::open_in_memory().unwrap();
-        let secrets = MemoryStore::default();
+        let secrets = MemorySecretStore::default();
         let accounts = parse_accounts("true | https://example.com | worker01 | secret-one | 처음");
 
         import_accounts(&database, &secrets, &accounts).unwrap();
@@ -248,7 +248,7 @@ mod tests {
     #[test]
     fn reports_error_rows_instead_of_importing_them() {
         let database = Database::open_in_memory().unwrap();
-        let secrets = MemoryStore::default();
+        let secrets = MemorySecretStore::default();
         let accounts = parse_accounts(
             "true | invalid-url | worker01 | secret-one\ntrue | https://example.com | worker02 | secret-two",
         );

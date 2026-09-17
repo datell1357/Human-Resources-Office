@@ -1,6 +1,4 @@
-#[cfg(test)]
 use std::collections::HashMap;
-#[cfg(test)]
 use std::sync::Mutex;
 
 const SERVICE: &str = "com.datell1357.human-resources-office";
@@ -73,15 +71,13 @@ impl SecretStore for KeychainStore {
     }
 }
 
-/// 테스트에서 실제 키체인을 건드리지 않기 위한 대체 구현이다.
-#[cfg(test)]
+/// 테스트와 데모 실행에서 실제 키체인을 건드리지 않기 위한 대체 구현이다.
 #[derive(Default)]
-pub struct MemoryStore {
+pub struct MemorySecretStore {
     entries: Mutex<HashMap<String, String>>,
 }
 
-#[cfg(test)]
-impl SecretStore for MemoryStore {
+impl SecretStore for MemorySecretStore {
     fn store(&self, reference: &str, secret: &str) -> Result<(), SecretError> {
         self.entries
             .lock()

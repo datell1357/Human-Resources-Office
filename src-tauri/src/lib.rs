@@ -1,7 +1,12 @@
 mod accounts_file;
 mod import;
-mod secret;
-mod storage;
+
+pub mod adapter;
+pub mod demo_board;
+pub mod engine;
+pub mod http;
+pub mod secret;
+pub mod storage;
 
 use std::{
     env,
@@ -98,6 +103,11 @@ fn save_post(state: State<'_, AppState>, input: posts::PostInput) -> Result<post
 #[tauri::command]
 fn delete_post(state: State<'_, AppState>, id: i64) -> Result<bool, String> {
     state.read(|connection| posts::delete(connection, id))
+}
+
+/// 통합 테스트와 데모 실행이 내부 구성 요소에 접근할 수 있도록 여는 창구다.
+pub mod testing {
+    pub use crate::{adapter, demo_board, engine, http, secret, storage};
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
