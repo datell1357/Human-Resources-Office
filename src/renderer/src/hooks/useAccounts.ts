@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { createPreviewAccounts } from '../previewAccounts'
+import { isPreview } from '../runtime'
 import type { AccountLoadResult } from '../types'
 
 export const useAccounts = (): {
@@ -17,7 +18,7 @@ export const useAccounts = (): {
     setLoading(true)
     setUnexpectedError('')
     try {
-      if (import.meta.env.DEV && !('__TAURI_INTERNALS__' in window)) {
+      if (isPreview()) {
         setResult(createPreviewAccounts())
         return
       }

@@ -28,3 +28,18 @@ export interface AccountLoadResult {
   summary: AccountSummary
   rows: AccountRow[]
 }
+
+export interface Post {
+  id: number
+  title: string
+  body: string
+  bodyFormat: string
+  createdAt: number
+  updatedAt: number
+}
+
+export interface PostInput {
+  id?: number
+  title: string
+  body: string
+}

@@ -1,3 +1,5 @@
+pub mod posts;
+
 use rusqlite::{Connection, Result as SqlResult};
 use std::path::Path;
 
