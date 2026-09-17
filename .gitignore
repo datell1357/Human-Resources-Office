@@ -9,3 +9,8 @@ src-tauri/gen/schemas/
 
 # 로컬 계정 원본은 저장소에 올리지 않습니다.
 accounts.txt
+
+# 로컬 작업 저장소는 기기마다 다릅니다.
+workspace.db
+workspace.db-wal
+workspace.db-shm

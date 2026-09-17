@@ -27,6 +27,14 @@ false | https://test.local | user02 | change-me | 수동 제외
 
 실제 `accounts.txt`는 Git에서 제외됩니다. 시작용 [`accounts.example.txt`](accounts.example.txt)를 복사해 사용할 수 있습니다. Rust 백엔드에서 파일을 읽고 접속 대상을 판정하며, React 화면에는 마스킹된 계정만 전달합니다. 비밀번호는 웹뷰 데이터에 포함하지 않습니다. 현재 초안은 파일 판독과 대상 선별까지만 수행하며, 외부 사이트 로그인·가입·게시 기능은 실행하지 않습니다.
 
+## 작업 저장소
+
+판독 결과는 SQLite 파일 `workspace.db`로 옮겨 보관합니다. 개발 모드에서는 저장소 루트에, 배포 실행 파일에서는 앱 데이터 폴더에 만들며 `WORKSPACE_DB` 환경변수로 경로를 바꿀 수 있습니다. 이 파일도 Git에서 제외됩니다.
+
+테이블은 `sites`, `accounts`, `posts`, `runs`, `run_items`입니다. `run_items`는 등록 요청이 끝난 `submitted` 상태와 실제로 글이 보이는지 확인한 `verified` 상태를 따로 기록합니다. 링크가 남았다는 이유로 게시 성공으로 판단하지 않기 위해서입니다. 같은 실행 안에서 한 사이트·계정 조합은 한 번만 들어가도록 제약을 걸어 재개할 때 중복 게시를 막습니다.
+
+비밀번호는 데이터베이스에 저장하지 않습니다. `accounts` 테이블에는 참조 키만 남기고 실제 값은 운영체제 키체인에 보관합니다.
+
 ## 조사 문서
 
 - [TTSOFT 프로그램 분석](docs/research/ttsoft-program-analysis.md): 기능, 사용 흐름, 추정 구조, 개선점과 적용 범위
